@@ -1,0 +1,339 @@
+BACKUP ~mtp/backup~
+AUTHOR ~wal.big.it@libero.it~
+
+AUTO_TRA ~mtp/%s~
+AUTO_TRA ~mtp/english~
+
+ALWAYS
+AT_INTERACTIVE_EXIT ~VIEW mtp/%LANGUAGE%/readme.htm~
+
+//.ids for TOB
+COPY_EXISTING ~kit.ids~ ~override~
+REPLACE_TEXTUALLY ~0x00004000 TRUECLASS~     ~0x4000 TRUECLASS~
+REPLACE_TEXTUALLY ~0x00000001~         ~0x4001~
+REPLACE_TEXTUALLY ~0x00000002~         ~0x4002~
+REPLACE_TEXTUALLY ~0x00000004~         ~0x4003~
+REPLACE_TEXTUALLY ~0x00000008~         ~0x4004~
+REPLACE_TEXTUALLY ~0x00000010~         ~0x4005~
+REPLACE_TEXTUALLY ~0x00000020~         ~0x4006~
+REPLACE_TEXTUALLY ~0x00000040~         ~0x0040~
+REPLACE_TEXTUALLY ~0x00000080~         ~0x0080~
+REPLACE_TEXTUALLY ~0x00000100~         ~0x0100~
+REPLACE_TEXTUALLY ~0x00000200~         ~0x0200~
+REPLACE_TEXTUALLY ~0x00000400~         ~0x0400~
+REPLACE_TEXTUALLY ~0x00000800~         ~0x0800~
+REPLACE_TEXTUALLY ~0x00001000~         ~0x1000~
+REPLACE_TEXTUALLY ~0x00002000~         ~0x2000~
+REPLACE_TEXTUALLY ~0x00008000~         ~0x4007~
+REPLACE_TEXTUALLY ~0x00010000~         ~0x4008~
+REPLACE_TEXTUALLY ~0x00020000~         ~0x4009~
+REPLACE_TEXTUALLY ~0x00040000 MAGESCHOOL_GENERALIST~   ~0x4000 MAGESCHOOL_GENERALIST~
+REPLACE_TEXTUALLY ~0x00080000~         ~0x400B~
+REPLACE_TEXTUALLY ~0x00100000~         ~0x400C~
+REPLACE_TEXTUALLY ~0x00200000~         ~0x400D~
+REPLACE_TEXTUALLY ~0x00400000~         ~0x400E~
+REPLACE_TEXTUALLY ~0x00800000~         ~0x400F~
+REPLACE_TEXTUALLY ~0x01000000~         ~0x4013~
+REPLACE_TEXTUALLY ~0x02000000~         ~0x4014~
+REPLACE_TEXTUALLY ~0x04000000~         ~0x4015~
+REPLACE_TEXTUALLY ~0x08000000~         ~0x4010~
+REPLACE_TEXTUALLY ~0x10000000~         ~0x4011~
+REPLACE_TEXTUALLY ~0x20000000~         ~0x4012~
+REPLACE_TEXTUALLY ~0x40000000 BARBARIAN~         ~0X401F BARBARIAN~
+// Added by the_bigg, further corrections by Littiz. Some installations have a
+// different (and still wrong) version of KIT.IDS, so they require a different patch:
+REPLACE_TEXTUALLY ~0x00004000 BARBARIAN~         ~0X401F BARBARIAN~
+REPLACE_TEXTUALLY ~0x40010000~ 	       ~0x4001~
+REPLACE_TEXTUALLY ~0x40020000~ 	       ~0x4002~
+REPLACE_TEXTUALLY ~0x40030000~ 	       ~0x4003~
+REPLACE_TEXTUALLY ~0x40040000~ 	       ~0x4004~
+REPLACE_TEXTUALLY ~0x40050000~ 	       ~0x4005~
+REPLACE_TEXTUALLY ~0x40060000~ 	       ~0x4006~
+REPLACE_TEXTUALLY ~0x00400000~ 	       ~0x0040~
+REPLACE_TEXTUALLY ~0x00800000~ 	       ~0x0080~
+REPLACE_TEXTUALLY ~0x01000000~ 	       ~0x0100~
+REPLACE_TEXTUALLY ~0x02000000~ 	       ~0x0200~
+REPLACE_TEXTUALLY ~0x04000000~ 	       ~0x0400~
+REPLACE_TEXTUALLY ~0x08000000~ 	       ~0x0800~
+REPLACE_TEXTUALLY ~0x10000000~ 	       ~0x1000~
+REPLACE_TEXTUALLY ~0x20000000~ 	       ~0x2000~
+REPLACE_TEXTUALLY ~0x40000000 TRUECLASS~ 	       ~0x4000 TRUECLASS~
+REPLACE_TEXTUALLY ~0x40000000 MAGESCHOOL_GENERALIST~   ~0x4000 MAGESCHOOL_GENERALIST~
+REPLACE_TEXTUALLY ~0x40070000~ 	       ~0x4007~
+REPLACE_TEXTUALLY ~0x40080000~ 	       ~0x4008~
+REPLACE_TEXTUALLY ~0x40090000~ 	       ~0x4009~
+REPLACE_TEXTUALLY ~0x400A0000~ 	       ~0x400A~
+REPLACE_TEXTUALLY ~0x400B0000~ 	       ~0x400B~
+REPLACE_TEXTUALLY ~0x400C0000~ 	       ~0x400C~
+REPLACE_TEXTUALLY ~0x400D0000~ 	       ~0x400D~
+REPLACE_TEXTUALLY ~0x400E0000~ 	       ~0x400E~
+REPLACE_TEXTUALLY ~0x400F0000~ 	       ~0x400F~
+REPLACE_TEXTUALLY ~0x40130000~ 	       ~0x4013~
+REPLACE_TEXTUALLY ~0x40140000~ 	       ~0x4014~
+REPLACE_TEXTUALLY ~0x40150000~ 	       ~0x4015~
+REPLACE_TEXTUALLY ~0x40100000~ 	       ~0x4010~
+REPLACE_TEXTUALLY ~0x40110000~ 	       ~0x4011~
+REPLACE_TEXTUALLY ~0x40120000~ 	       ~0x4012~
+REPLACE_TEXTUALLY ~0x401F0000~ 	       ~0x401F~
+
+
+APPEND ~TRIGGER.IDS~ ~0x4031 HaveSpellRES(S:Spell*)~
+	 UNLESS ~HaveSpellRES(S:Spell*)~
+
+
+APPEND ~STATS.IDS~ ~128 WIZARD_PROTECTION_FROM_MAGIC_WEAPONS~
+	 UNLESS ~WIZARD_PROTECTION_FROM_MAGIC_WEAPONS~
+
+
+APPEND ~ACTION.IDS~ ~31 SpellRES(S:RES*,O:Target*)~
+	 UNLESS ~SpellRES(S:RES*,O:Target*)~
+APPEND ~ACTION.IDS~ ~95 SpellPointRES(S:RES*,P:Target*)~
+	 UNLESS ~SpellPointRES(S:RES*,P:Target*)~
+APPEND ~ACTION.IDS~ ~113 ForceSpellRES(S:RES*,O:Target)~
+	 UNLESS ~ForceSpellRES(S:RES*,O:Target)~
+APPEND ~ACTION.IDS~ ~114 ForceSpellPointRES(S:RES*,P:Target)~
+	 UNLESS ~ForceSpellPointRES(S:RES*,P:Target)~
+APPEND ~ACTION.IDS~ ~160 ApplySpellRES(S:RES*,O:Target)~
+	 UNLESS ~ApplySpellRES(S:RES*,O:Target)~
+APPEND ~ACTION.IDS~ ~181 ReallyForceSpellRES(S:RES*,O:Target)~
+	 UNLESS ~ReallyForceSpellRES(S:RES*,O:Target)~
+APPEND ~ACTION.IDS~ ~191 SpellNoDecRES(S:RES*,O:Target*)~
+	 UNLESS ~SpellNoDecRES(S:RES*,O:Target*)~
+APPEND ~ACTION.IDS~ ~192 SpellPointNoDecRES(S:RES*,P:Target*)~
+	 UNLESS ~SpellPointNoDecRES(S:RES*,P:Target*)~
+APPEND ~ACTION.IDS~ ~240 ReallyForceSpellDeadRES(S:RES*,O:Target)~
+	 UNLESS ~ReallyForceSpellDeadRES(S:RES*,O:Target)~
+APPEND ~ACTION.IDS~ ~318 ForceSpellRangeRES(S:RES*,O:Target)~
+	 UNLESS ~ForceSpellRangeRES(S:RES*,O:Target)~
+APPEND ~ACTION.IDS~ ~319 ForceSpellPointRangeRES(S:RES*,P:Target)~
+	 UNLESS ~ForceSpellPointRangeRES(S:RES*,P:Target)~
+APPEND ~ACTION.IDS~ ~337 ReallyForceSpellPointRES(S:RES*,P:Target*)~
+	 UNLESS ~ReallyForceSpellPointRES(S:RES*,P:Target*)~
+
+//Scriptable Spells, courthesy of Cirrerek
+  COPY_EXISTING
+    ~SPCL232.spl~ ~override/SPCL232.spl~
+    ~SPCL412.spl~ ~override/SPCL412.spl~
+    ~SPCL414.spl~ ~override/SPCL414.spl~
+    ~SPCL621.spl~ ~override/SPCL621.spl~
+    ~SPCL721.spl~ ~override/SPCL721.spl~
+    ~SPCL722.spl~ ~override/SPCL722.spl~
+    ~SPCL731.spl~ ~override/SPCL731.spl~
+    ~SPCL732.spl~ ~override/SPCL732.spl~
+    ~SPCL741.spl~ ~override/SPCL741.spl~
+    ~SPCL742.spl~ ~override/SPCL742.spl~
+    ~SPIN696.spl~ ~override/SPIN696.spl~
+    ~SPIN697.spl~ ~override/SPIN697.spl~
+    ~SPIN698.spl~ ~override/SPIN698.spl~
+    ~SPIN891.spl~ ~override/SPIN891.spl~
+  	WRITE_LONG 0x34 1
+  BUT_ONLY_IF_IT_CHANGES
+
+  ACTION_IF FILE_EXISTS ~data/25spells.bif~ THEN BEGIN
+	  COPY_EXISTING
+	    ~SPCL910.spl~ ~override/SPCL910.spl~
+	    ~SPCL911.spl~ ~override/SPCL911.spl~
+	    ~SPCL912.spl~ ~override/SPCL912.spl~
+	    ~SPCL923.spl~ ~override/SPCL923.spl~
+	  	WRITE_LONG 0x34 1
+  	  BUT_ONLY_IF_IT_CHANGES
+END
+
+END
+
+LANGUAGE ~English~
+	 ~English~
+	 ~mtp/English/setup.tra~
+
+
+
+/* ****************************************
+          MAZZY THE PALADIN
+**************************************** */
+
+BEGIN @0  //Mazzy the Paladin
+UNINSTALL "setup-mazzythepaladin.tp2" 0
+UNINSTALL ~setup-tb#pack.tp2~ 0
+
+ACTION_IF FILE_EXISTS ~override/tb#mazpa.txt~ THEN BEGIN
+FAIL @60 END
+COPY_EXISTING ~sw1h01.itm~ ~override/tb#mazpa.txt~
+//this file will help other mods detect if component is installed.
+
+
+
+EXTEND_TOP "baldur.bcs" "mtp/baldur.baf"
+	   REPLACE 999999 @1
+
+EXTEND_TOP "baldur25.bcs" "mtp/baldur.baf"
+	   REPLACE 999999 @1
+
+EXTEND_TOP "ar2000.bcs" "mtp/ar2000.baf"
+
+COMPILE "mtp/compile"
+
+EXTEND_TOP "tb#lich.bcs" "mtp/tb#lich.baf"
+	   REPLACE 999999 @8
+
+
+COPY "mtp/copy" "override"
+
+COPY "mtp/tb#000.are" "override/tb#000.are"
+     SAY 0x13b4 @9
+     SAY 0x13e8 @10
+     SAY 0x141c @11
+     SAY 0x1450 @13
+
+COPY "mtp/tb#arvor.cre" "override/tb#arvor.cre"
+
+COPY "mtp/tb#guard.cre" "override/tb#guard.cre"
+     SAY NAME1  @15
+     SAY NAME2  @15
+
+COPY "mtp/tb#robin.cre" "override/tb#robin.cre"
+     SAY NAME1  @16
+     SAY NAME2  @16
+
+COPY "mtp/tb#Sandy.cre" "override/tb#sandy.cre"
+     SAY NAME1  @17
+     SAY NAME2  @17
+
+COPY "mtp/tb#gyron.cre" "override/tb#gyron.cre"
+     SAY NAME1  @13
+     SAY NAME2  @13
+
+COPY "mtp/tb#merik.cre" "override/tb#merik.cre"
+     SAY NAME1  @18
+     SAY NAME2  @18
+
+COPY "mtp/tb#mayor.cre" "override/tb#mayor.cre"
+     SAY NAME1  @11
+     SAY NAME2  @11
+
+COPY "mtp/tb#phala.cre" "override/tb#phala.cre"
+     SAY NAME1  @19
+     SAY NAME2  @19
+
+COPY "mtp/tb#biff.cre" "override/tb#biff.cre"
+     SAY NAME1  @20
+     SAY NAME2  @20
+
+COPY "mtp/tb#lorun.cre" "override/tb#lorun.cre"
+     SAY NAME1  @21
+     SAY NAME2  @21
+
+COPY "mtp/tb#aledr.cre" "override/tb#aledr.cre"
+     SAY NAME1  @22
+     SAY NAME2  @22
+
+COPY "mtp/tb#thief.cre" "override/tb#thief.cre"
+     SAY NAME1  @23
+     SAY NAME2  @23
+
+COPY "mtp/tb#thie1.cre" "override/tb#thie1.cre"
+     SAY NAME1  @24
+     SAY NAME2  @24
+
+COPY "mtp/tb#thie2.cre" "override/tb#thie2.cre"
+     SAY NAME1  @25
+     SAY NAME2  @25
+
+COPY "mtp/tb#terry.cre" "override/tb#terry.cre"
+     SAY NAME1  @26
+     SAY NAME2  @26
+
+COPY "mtp/tb#lich.cre" "override/tb#lich.cre"
+     SAY NAME1  @9
+     SAY NAME2  @9
+
+COPY "mtp/tb#sting.itm" "override/tb#sting.itm"
+     SAY NAME1  @27
+     SAY NAME2  @28
+     SAY UNIDENTIFIED_DESC @29
+     SAY IDENTIFIED_DESC @30
+
+COPY "mtp/tb#invis.itm" "override/tb#invis.itm"
+     SAY NAME2  @31
+     SAY IDENTIFIED_DESC @32
+
+COPY "mtp/tb#swarv.itm" "override/tb#swarv.itm"
+     SAY NAME2  @33
+     SAY IDENTIFIED_DESC @34
+
+COPY "mtp/tb#undea.itm" "override/tb#undea.itm"
+     SAY IDENTIFIED_DESC @35
+
+COPY "mtp/tb#swm1.itm" "override/tb#swm1.itm"
+     SAY NAME2 @38
+     SAY IDENTIFIED_DESC @39
+
+COPY "mtp/tb#swm2a.itm" "override/tb#swm2a.itm"
+     SAY NAME2 @38
+    SAY IDENTIFIED_DESC @40
+
+COPY "mtp/tb#swm2b.itm" "override/tb#swm2b.itm"
+     SAY NAME2 @38
+     SAY IDENTIFIED_DESC @41
+
+COPY "mtp/tb#swm2c.itm" "override/tb#swm2c.itm"
+     SAY NAME2 @38
+     SAY IDENTIFIED_DESC @42
+
+COPY "mtp/tb#swm2d.itm" "override/tb#swm2d.itm"
+     SAY NAME2 @38
+     SAY IDENTIFIED_DESC @43
+
+COPY "mtp/tb#bow1.itm" "override/tb#bow1.itm"
+     SAY NAME2 @44
+     SAY IDENTIFIED_DESC @45
+
+COPY "mtp/tb#bow2.itm" "override/tb#bow2.itm"
+     SAY NAME2 @44
+     SAY IDENTIFIED_DESC @46
+
+COPY "mtp/tb#bow1a.itm" "override/tb#bow1a.itm"
+     SAY NAME2 @47
+     SAY IDENTIFIED_DESC @48
+
+COPY "mtp/tb#magic.itm" "override/tb#magic.itm"
+     SAY IDENTIFIED_DESC @49
+
+COPY "mtp/tb#losem.spl" "override"
+     SAY NAME1 @50
+
+ACTION_IF FILE_EXISTS "data/25spells.bif" THEN BEGIN
+  EXTEND_TOP "baldur25.bcs" "mtp/tob/baldur25.baf"
+  EXTEND_TOP "ar5001.bcs" "mtp/tob/ar5001.baf"
+
+  COPY "mtp/tob/copy" "override"
+
+  COMPILE "mtp/tob/compile"
+
+  COPY "mtp/tob/tb#mage1.itm" "override"
+       SAY NAME1 @2
+       SAY DESC @3
+
+
+  COPY "mtp/tob/tb#mage.cre" "override"
+       SAY NAME1 @4
+       SAY NAME2 @4
+
+  COPY "mtp/tob/tb#mage.cre" "override/tb#maged.cre"
+       SAY NAME1 @5
+       SAY NAME2 @5
+       WRITE_ASCII 0x0248 "tb#maged"
+       WRITE_ASCII 0x0280 "tb#maged"
+       WRITE_BYTE 0x0275 6 //Gender: Summoned
+
+  COPY "mtp/tob/tb#mage.cre" "override/tb#magep.cre"
+       SAY NAME1 @6
+       SAY NAME2 @6
+       WRITE_ASCII 0x0248 "tb#magep"
+       WRITE_ASCII 0x0280 "tb#magep"
+       WRITE_BYTE 0x0275 7 //Gender: Illusionary
+END
+
+ELSE BEGIN PRINT @7 END
+
+AT_INTERACTIVE_EXIT ~mtp/install.bat~
+AT_INTERACTIVE_UNINSTALL ~mtp/uninstall.bat~

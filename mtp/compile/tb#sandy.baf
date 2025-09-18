@@ -1,0 +1,30 @@
+IF
+!Allegiance(Myself,ENEMY)
+THEN
+RESPONSE #100
+FaceObject(Player1)
+END
+
+IF
+HPLT(Myself,80)
+HasItem("potn52",Myself)
+THEN
+RESPONSE #100
+UseItem("Potn52",Myself)
+END
+
+IF
+See(NearestEnemyOfType([PC]))
+!Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+RESPONSE #100
+AttackReevaluate(LastSeenBy(Myself),10)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+        !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(Myself),10)
+END

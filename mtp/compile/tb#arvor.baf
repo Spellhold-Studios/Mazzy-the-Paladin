@@ -1,0 +1,9 @@
+IF
+  OR(2)
+       See([PC])
+       See("Mazzy")
+THEN
+  RESPONSE #100
+	StartDialogueNoSet(LastSeenBy)
+END
+

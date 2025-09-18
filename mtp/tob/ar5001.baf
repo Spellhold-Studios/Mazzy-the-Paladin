@@ -1,0 +1,20 @@
+IF
+	Global("tb#sucineridone","global",0)
+	Global("tb#aledrethhasspoken","global",7)
+THEN
+	RESPONSE #100
+		StartCutSceneMode()
+		SetGlobal("tb#sucineridone","global",2)
+		ActionOverride(Player1,ReallyForceSpell(Myself,2299) // scrlzy (kill everybody)
+		Wait(6)
+		CreateCreatureObjectOffScreen("tb#mage",Player1,0,0,0)
+		EndCutSceneMode()
+END
+
+IF
+	Global("tb#sucineridone","global",0)
+	GlobalLT("tb#aledrethhasspoken","global",7)
+THEN
+	RESPONSE #100
+		SetGlobal("tb#sucineridone","global",1)
+END

@@ -1,0 +1,72 @@
+IF
+  Global("mazzyisgoingtobeapaladinkit","global",1)	//mazzy is going to be a vanilla paladin: no fight!
+THEN
+  RESPONSE #100
+	DestroySelf()
+	ReallyForceSpellDead(Myself,WIZARD_FREEDOM)	//freeing swallowed whole PCs
+END
+
+IF
+    Global("fightwithme","Locals",0)
+    OR(12)
+      AttackedBy([GOODCUTOFF.0.0.0.0.SUMMONED],DEFAULT)
+      AttackedBy([PC],DEFAULT)
+      AttackedBy([FAMILIAR],DEFAULT)
+      AttackedBy([ALLY],DEFAULT)
+      AttackedBy([CONTROLLED],DEFAULT)
+      AttackedBy([CHARMED],DEFAULT)
+      SpellCastOnMe([GOODCUTOFF.0.0.0.0.SUMMONED],0)
+      SpellCastOnMe([PC],0)
+      SpellCastOnMe([FAMILIAR],0)
+      SpellCastOnMe([ALLY],0)
+      SpellCastOnMe([CONTROLLED],0)
+      SpellCastOnMe([CHARMED],0)
+THEN
+  RESPONSE #100
+ 	SetGlobal("fightwithme","locals",1)
+END
+
+IF
+Die()
+THEN
+  RESPONSE #100
+	ReallyForceSpellDead(Myself,WIZARD_FREEDOM)	//freeing swallowed whole PCs
+END
+
+IF
+  GlobalTimerExpired("prep","locals")
+THEN
+  RESPONSE #100
+	ApplySpell(Myself,BARBARIAN_RAGE)
+	ApplySpell(Myself,BERSERKER_RAGE)			  //combat buffing up  + some immunities
+	ApplySpell(Myself,CLERIC_CHAOTIC_COMMANDS)
+	ApplySpell(Myself,CLERIC_DEATH_WARD)
+	ApplySpell(Myself,CLERIC_FREE_ACTION)		 	 // just to be sure I haven't missed anything: per 2nd ed rules, he's immune to everything, or simply should be (Deathward)
+	ApplySpell(Myself,CLERIC_PHYSICAL_MIRROR)		 // As per PnP description
+	ApplySpell(Myself,WIZARD_SPELL_IMMUNITY_ABJURATION)	 //they are terry's innates, so no dispelling
+	ApplySpell(Myself,WIZARD_SPELL_SHIELD) 			// really!
+	SetGlobalTimer("prep","locals",30)
+END
+
+IF
+  Global("tb#fightwiththelich","global",0)
+  Global("fightwithme","locals",0)
+THEN
+    RESPONSE #100
+    	     NoAction()
+END
+
+IF
+  Global("fear","locals",0)
+THEN
+  RESPONSE #100
+	ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_SYMBOL_FEAR)	// used to be a wizard:horror in PnP, but this works more often
+	SetGlobal("fear","locals",1)
+END
+
+IF
+True()
+THEN
+RESPONSE #100
+AttackReevaluate(NearestEnemyOf(Myself),6)
+END

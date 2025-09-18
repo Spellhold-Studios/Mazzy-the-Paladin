@@ -1,0 +1,750 @@
+//AI for a projected image
+
+// sor: 6 6 6 6 6 7 7 6 3
+// knw: 5 5 4 4 4 3 3 2 1+1
+// cle: 9 9 9 9 9 6 3
+//(feats: imp alacrity + extra 6th, 7th & 8th spells + hardiness + deva. I've skipped fighting skills (GWW) because by the time he would use them he will have casted enough spells to kill 3 parties (plus I was lazy). Simmy will take care of that...
+
+//You may even find that castaquickspell and justtovary are interesting checks to give enemies some 1% more of variety. with the random castings of some levels.
+
+// Pre-buffing, pre-summoning and chained/triggered spells are included in the max spell/day.
+// chain: remove magic, creeping doom, Abi Dalzim
+// trigger: insect plague, flamestrike, chaos
+// sequencer: 3 * hold person (after a greater malison it works...)
+
+// sorc1 : Magic Missile, Chormatic Orb, Spook, (two slots for crap like identify)
+// sorc2 : Mirror Images, Blur, Melf Acid Arrow , horror (one slot for whatever)
+// sorc3 : Remove Magic, Flame Arrow, Slow (one slot missing)
+// sorc4 : Greater Malison, Improved Invisibility, Fireshield:red, StoneSkin
+// sorc5 : Chaos, Feeblemind, Spell Immunity, Spell Shield
+// sorc6 : PFMW, DeathSpell, Imp Haste, Protection From Magical Energy
+// sorc7 : Sequencer, proj image (one slot)
+// sorc8 : Simulacrum, Abi Dalzim (the Spell Trigger was from a scroll)
+// sorc9 : Time Stop, Improved Alacrity (The CC was from a scroll)
+
+// prie1 : Sanctuary (4), Armor of Faith, Remove Fear, Bless, doom (2)
+// prie2 : Chant, DUHM, Resist FireCold, Barskin, HoldPreson (5)
+// prie3 : Animate Dead (4), Zone Of Clean Air (4), Prot from Fire
+// prie4 : Call woodland beings (3), Defensive Harmony, 4.5ft Prot from evil, Death Ward, FreeAction, Holy Might, Prot from Lightning
+// prie5 : Chaotic Commands, InsectPlague (4), FlameStrike (4)
+// prie6 : Heal (4), Conjure Fire Elem (2)
+// prie7 : regenerate, Creeping Doom, summon deva (I'm a r/c/s, so no sunnis...alas...)
+
+// horror is there only for simulacrum's sake: I don't use it because it's weak, simmy uses it in between attacks because it's quick.
+
+//rememorize variables, in case of resting
+
+
+//progressive prepping
+IF
+  Die()
+THEN
+	RESPONSE #100
+		DestroySelf()  
+END
+
+IF
+  Global("prep","locals",0)
+THEN
+    RESPONSE #100
+    	     ApplySpellRES("projimag",Myself)
+END
+
+IF
+        Global("prep","locals",0)
+	Difficulty(HARDEST)
+THEN
+	RESPONSE #100
+		ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_CONJURATION)
+		ReallyForceSpell(Myself,WIZARD_SPELL_SHIELD)
+		Continue()
+END
+
+IF
+        Global("prep","locals",0)
+	DifficultyGT(NORMAL)
+THEN
+	RESPONSE #100
+		ReallyForceSpell(Myself,WIZARD_MELF_METEOR)
+		Continue()
+END
+
+IF
+        Global("prep","locals",0)
+	DifficultyGT(EASY)
+THEN
+	RESPONSE #100
+		ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_ABJURATION)
+		ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_DIVINATION)
+		ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_NECROMANCY)
+		CreateCreatureObject("tb#maged",Myself,0,0,0) //I think that this is limit-less if Proj-image'd
+		Continue()
+END
+
+IF
+        Global("prep","locals",0)
+THEN
+	RESPONSE #100
+		ReallyForceSpell(Myself,WIZARD_STONE_SKIN)
+		ReallyForceSpell(Myself,WIZARD_MIRROR_IMAGE)
+		ReallyForceSpell(Myself,WIZARD_BLUR)
+		ReallyForceSpell(Myself,WIZARD_FIRE_SHIELD_RED)
+		ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+		ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_ENERGY)
+		ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+		ReallyForceSpell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+		ReallyForceSpell(Myself,CLERIC_ARMOR_OF_FAITH)
+		ReallyForceSpell(Myself,CLERIC_REMOVE_FEAR)
+		ReallyForceSpell(Myself,CLERIC_BLESS)
+		ReallyForceSpell(Myself,CLERIC_CHANT)
+		ReallyForceSpell(Myself,CLERIC_BARKSKIN)
+		ReallyForceSpell(Myself,CLERIC_RESIST_FIRE)
+		ReallyForceSpell(Myself,CLERIC_PROTECTION_FROM_FIRE)
+		ReallyForceSpell(Myself,CLERIC_DEFENSIVE_HARMONY)
+		ReallyForceSpell(Myself,CLERIC_PROTECTION_FROM_EVIL_10_FOOT)
+		ReallyForceSpell(Myself,CLERIC_DEATH_WARD)
+		ReallyForceSpell(Myself,CLERIC_FREE_ACTION)
+		ReallyForceSpell(Myself,CLERIC_HOLY_POWER)
+		ReallyForceSpell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)
+		ReallyForceSpell(Myself,CLERIC_PROTECTION_FROM_LIGHTNING)
+		ReallyForceSpell(Myself,CLERIC_CHAOTIC_COMMANDS)
+		ReallyForceSpell(Myself,CLERIC_REGENERATE)
+		ReallyForceSpell(Myself,CLERIC_SUMMON_DEVA)
+		ReallyForceSpell(Myself,WARRIOR_HARDINESS)
+			// I hope I haven't missed some important spells...
+		SetGlobal("one","locals",6)
+		SetGlobal("two","locals",4)
+		SetGlobal("three","locals",5)
+		SetGlobal("four","locals",3)
+		SetGlobal("five","locals",4)
+		SetGlobal("six","locals",3)
+		SetGlobal("seven","locals",7)
+		SetGlobal("eight","locals",4)
+		SetGlobal("nine","locals",3)
+		SetGlobal("sancuary","locals",4)
+		SetGlobal("doom","locals",2)
+		SetGlobal("hold","locals",2)
+		SetGlobal("zone","locals",4)
+		SetGlobal("insect","locals",3)
+		SetGlobal("flamestrike","locals",3)
+		SetGlobal("heal","locals",4)
+		SetGlobal("chain","locals",1)
+		SetGlobal("timestop","locals",0)
+		SetGlobal("chain","locals",0)
+		SetGlobal("trig","locals",0)
+		SetGlobal("seq","locals",0)
+		SetGlobal("nomorespells","locals",0)
+		SetGlobalTimer("pfmw","locals",24)
+		SetGlobal("prep","locals",1)
+		SetGlobalTimer("summontime","locals",6)
+		SetGlobal("summon","locals",7)
+		SetGlobalTimer("cast","locals",1)
+		SetGlobalTimer("alacre","locals",1)
+END
+
+// 9th level is there to ensure rapid victory
+// At the top since I need these spells to be cast with highest priority. Even before than Heal, since TimeStop and ImpAlacrity will increase the odds of a succesful casting and provide better speed. Also, the 3 9th level spells will be cast at the very beginnging of fight, before it would be possible to hurt me much.
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+	GlobalGT("nine","locals",2)	// This variable controlls 9th level as a whole.
+THEN
+	RESPONSE #100
+		SetGlobalTimer("cast","locals",6)
+		SpellNoDec(Myself,WIZARD_TIME_STOP)  // opening with one is surely kind for my enemies
+		IncrementGlobal("nine","locals",-1)
+END
+
+IF
+	GlobalTimerExpired("cast","locals")
+	GlobalTimerExpired("alacre","locals")
+	GlobalGT("nine","locals",0)
+	!Difficulty(EASIEST)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("alacre","locals",12)   //Do not attack while alacre, please!!
+		SpellNoDec(Myself,WIZARD_IMPROVED_ALUCRITY)
+		IncrementGlobal("nine","locals",-1)
+END
+
+// standard mage and/or priest defensive spells
+IF
+        CheckStat(Myself,0,SANCTUARY)
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+	GlobalGT("sanctuary","locals",0)
+	HPPercentLT(Myself,20)
+THEN
+	RESPONSE #100
+		SpellNoDec(Myself,CLERIC_SANCTUARY)
+		IncrementGlobal("sanctuary","locals",-1)
+		SetGlobal("castaquickspell","locals",1) // I want to use the surprise factor in the next attacking spell, since I'm sanctuarized
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+	GlobalGT("heal","locals",0)
+	HPPercentLT(Myself,20)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("cast","locals",6)
+		SpellNoDec(Myself,CLERIC_HEAL)
+		IncrementGlobal("heal","locals",-1)
+END
+
+IF
+	OR (2)	// no castaquick check: it doesn't break sanctuary anyway
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+	GlobalTimerExpired("pfmw","locals")
+	GlobalGT("six","locals",0)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("cast","locals",6)
+		IncrementGlobal("six","locals",-1)
+		SpellNoDec(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+		SetGlobalTimer("pfmw","locals",24)
+END
+
+IF
+  	CheckStatLT(Myself,1,STONESKINS)
+  	GlobalTimerExpired("cast","locals")
+  	GlobalGT("four","locals",0)
+THEN
+  	RESPONSE #100
+		SetGlobalTimer("cast","locals",6)
+		SpellNoDec(Myself,WIZARD_STONE_SKIN)
+		IncrementGlobal("four","locals",-1)
+END
+
+// stay invisible, if hurt!
+
+IF
+        !CheckStat(Myself,0,SANCTUARY)	//If I'm sanctuarized
+	HPPercentLT(Myself,20)	//and hurt enough for casting a heal
+	GlobalGT("heal","locals",0)	//and have one memorized
+THEN
+	RESPONSE #100
+		NoAction() //Let's just wait till I will cast Heal.
+END
+
+
+// no cheap summons
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+      GlobalGT("six","locals",0)
+	See(NearestEnemyOfType([GOODCUTOFF.0.0.0.0.SUMMONED]))
+	!Global("castaquickspell","locals",1)	// =1: I'm sanctuarized, I'd like to cast a quick spell. This means that, if you cast Nishruu while he cast sanctuary, your summon will stay alive and can attack for 2/3 rounds. Big deal, since I SpellNoDec anyway.
+THEN
+	RESPONSE #100
+		SetGlobalTimer("Cast","LOCALS",6)
+		SpellNoDec(LastSeenBy(Myself),WIZARD_DEATH_SPELL)
+		IncrementGlobal("six","locals",-1)
+END
+
+// and no cloudkill cheese
+
+IF
+  OR(6)
+    HitBy([GOODCUTOFF],POISON) // wand of cloudkill
+    SpellCast([GOODCUTOFF],WIZARD_CLOUDKILL)
+    SpellCast([GOODCUTOFF],WIZARD_STINKING_CLOUD)
+    SpellCast([GOODCUTOFF],WIZARD_INCENDIARY_CLOUD)
+    SpellCast([GOODCUTOFF],CLERIC_STORM_OF_VENGEANCE)
+    SpellCast([GOODCUTOFF],WIZARD_DEATH_FOG)  //you'll HAVE to deal with my pets, sorry...
+	GlobalGT("zone","locals",0)
+    OR(2)
+	GlobalTimerExpired("cast","locals")
+	GlobalTimerNotExpired("alacre","locals")
+THEN
+	RESPONSE #100
+		ReallyForceSpell(Myself,CLERIC_ZONE_OF_SWEET_AIR)	//I have to force, to avoid stupid spell losing due to cloud damage
+		IncrementGlobal("zone","locals",-1)
+		SetGlobalTimer("cast","locals",1)
+END
+
+/////////////////////////////////////////////////////////////////////
+// usual targeting copied from wes's one
+// Find a target with no spell protections & low magic resistance.
+/////////////////////////////////////////////////////////////////////
+
+//  SixthNearest.
+IF
+    !HasBounceEffects(SixthNearestEnemyOf(Myself))
+    !HasImmunityEffects(SixthNearestEnemyOf(Myself))
+    CheckStatLT(SixthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SixthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+	// I don't check improved invisibility as I can see the invisible... nasty, nasty, nasty!
+    See(SixthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FifthNearest.
+IF
+    !HasBounceEffects(FifthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FifthNearestEnemyOf(Myself))
+    CheckStatLT(FifthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FifthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    See(FifthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FourthNearest.
+IF
+    !HasBounceEffects(FourthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FourthNearestEnemyOf(Myself))
+    CheckStatLT(FourthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FourthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    See(FourthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  ThirdNearest.
+IF
+    !HasBounceEffects(ThirdNearestEnemyOf(Myself))
+    !HasImmunityEffects(ThirdNearestEnemyOf(Myself))
+    CheckStatLT(ThirdNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(ThirdNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    See(ThirdNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  SecondNearest.
+IF
+    !HasBounceEffects(SecondNearestEnemyOf(Myself))
+    !HasImmunityEffects(SecondNearestEnemyOf(Myself))
+    CheckStatLT(SecondNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SecondNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    See(SecondNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest.
+IF
+    !HasBounceEffects(NearestEnemyOf(Myself))
+    !HasImmunityEffects(NearestEnemyOf(Myself))
+    CheckStatLT(NearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    See(NearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest CLERIC_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    CheckStatLT(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL])),STATE_OUT_OF_ACTION)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest MAGE_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL])),STATE_OUT_OF_ACTION)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+
+/////////////////////////////////////////////////////////////////////
+// From here on in we must have enemies
+/////////////////////////////////////////////////////////////////////
+
+IF
+      !Detect(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    Attack(Player1)
+END
+
+IF
+      !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+//remove magic.
+//this, CC, GM, SEQ and TRIG avoid the castaquickspell and the justtovary checks because I am 100% positive they begin flying while in the first TS/IA combo, with my intended order, without compicated checks for invisibility and/or variations in spells to cast
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        Allegiance(Myself,ENEMY)
+          !Allegiance(LastSeenBy(Myself),ENEMY)
+        GlobalGT("three","locals",0)
+		GlobalLT("remove","locals",3)  // will cast only twice... I have other spells to cast, please!
+THEN
+  RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_DISPEL_MAGIC)
+	IncrementGlobal("three","locals",-1)
+	IncrementGlobal("remove","locals",1)
+		SetGlobal("castaquickspell","locals",0)
+END
+
+// some really nasty chain contingency by a druid...
+
+IF
+	Global("chain","locals",1)
+THEN
+	RESPONSE #100
+		DisplayString(Myself,26328)
+		ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_DISPEL_MAGIC)
+		//  ReallyForceSpell(Myself,CLERIC_NATURE_BEAUTY)  // could have used, but it's so *"!"*^ hard to dispel that I want to save the player from the annoyance. However...
+		ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)
+		ReallyForceSpell(NearestEnemyOf(Myself),CLERIC_CREEPING_DOOM)
+		SetGlobal("chain","locals",0)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Spell: Malison (creeping doom and first ADHW aren't malisoned, but who cares!
+// Also doom
+/////////////////////////////////////////////////////////////////////
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+      GlobalGT("four","locals",0)
+	!Global("mal","locals",1)  //do only once or would use up all the 4th level here
+THEN
+  RESPONSE #100
+      SetGlobalTimer("Cast","LOCALS",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_GREATER_MALISON)
+	SetGlobal("mal","locals",1)
+	IncrementGlobal("four","locals",-1)
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+      GlobalGT("doom","locals",0)
+THEN
+  RESPONSE #100
+      SetGlobalTimer("Cast","LOCALS",6)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_DOOM)
+	IncrementGlobal("doom","locals",-1)
+END
+
+
+/////////////////////////////////////////////////////////////////////
+// Spell: Spell Trigger
+/////////////////////////////////////////////////////////////////////
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        Global("Trig","LOCALS",0)
+THEN
+    RESPONSE #100
+        SetGlobal("Trig","LOCALS",1)
+        DisplayString(Myself,26243) // Spell Trigger
+        ReallyForceSpell(LastSeenBy(Myself),CLERIC_INSECT_PLAGUE)  //He hates enemy mages, doesn't he?
+        ReallyForceSpell(LastSeenBy(Myself),CLERIC_FLAME_STRIKE)
+        ReallyForceSpell(LastSeenBy(Myself),WIZARD_CHAOS)
+	  SetGlobalTimer("cast","locals",6)
+		SetGlobal("castaquickspell","locals",0)
+END
+
+// Spell sequencer: This is nice, you may even save against...
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        Global("seq","LOCALS",0)
+THEN
+    RESPONSE #100
+        SetGlobal("seq","LOCALS",1)
+        DisplayString(Myself,25951) // Spell Sequencer
+        ReallyForceSpell(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+        ReallyForceSpell(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+        ReallyForceSpell(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+	  SetGlobalTimer("cast","locals",6)
+		SetGlobal("castaquickspell","locals",0)
+END
+
+// other spells, with some variating and/or ambush factor
+
+IF
+	Global("castaquickspell","locals",0)
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+      GlobalGT("insect","locals",0)
+	!Global("justtovary","locals",1)  // =1--> cast a damaging spell; =0--> cast a debilitating spell
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("insect","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_INSECT_PLAGUE)
+	SetGlobal("justtovary","locals",1)
+END
+
+IF
+	Global("castaquickspell","locals",0)
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("eight","locals",0)
+	!Global("justtovary","locals",0)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("eight","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)
+	SetGlobal("justtovary","locals",0)
+END
+
+
+IF
+	Global("castaquickspell","locals",0)
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("flamestrike","locals",0)
+	!Global("justtovary","locals",0)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("flamestrike","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_FLAME_STRIKE)
+	SetGlobal("justtovary","locals",0)
+END
+
+IF
+	Global("castaquickspell","locals",0)
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("seven","locals",0)
+	Range(LastSeenBy(Myself),3)
+	!Global("justtovary","locals",1)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("Seven","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_PRISMATIC_SPRAY)
+	SetGlobal("justtovary","locals",0)
+END
+
+IF
+	OR (2)		// No check for castaquickspell: this is a quick spell! (AI considers that Surenici IS wearing the robe of Vecna. If the players don't have it [is there anybody who does?], he won't use it, so quick spells are messed up.)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("five","locals",0)
+	!Global("justtovary","locals",1)
+THEN
+    RESPONSE #50
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("five","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_CHAOS)
+	SetGlobal("justtovary","locals",1)
+	SetGlobal("castaquickspell","locals",0) //used the surprise factor of sanctuary, can cast heavy spells
+    RESPONSE #50
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("five","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_FEEBLEMIND)
+	SetGlobal("justtovary","locals",1)
+	SetGlobal("castaquickspell","locals",0)
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("three","locals",0)
+	!Global("justtovary","locals",1)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("three","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_SLOW)
+		SetGlobal("castaquickspell","locals",0) 
+	SetGlobal("justtovary","locals",1)
+END
+
+IF
+	OR (2)		
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("three","locals",0)
+	Global("justtovary","locals",1)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("three","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+	SetGlobal("castaquickspell","locals",0)
+	SetGlobal("justtovary","locals",0)
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("hold","locals",0)
+	!Global("justtovary","locals",1)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("hold","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_HOLD_PERSON)
+		SetGlobal("castaquickspell","locals",0)
+	SetGlobal("justtovary","locals",1)
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("two","locals",0)
+	Global("justtovary","locals",1)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("two","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+		SetGlobal("castaquickspell","locals",0)
+	SetGlobal("justtovary","locals",0)
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("ONE","locals",0)
+	Global("justtovary","locals",1)
+THEN
+    RESPONSE #10
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("one","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_CHROMATIC_ORB)	// lower % of happening: it never works, and when it does it is an almost sure PW:Reload.
+		SetGlobal("castaquickspell","locals",0)
+	SetGlobal("justtovary","locals",0)
+    RESPONSE #65
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("one","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+		SetGlobal("castaquickspell","locals",0)
+	SetGlobal("justtovary","locals",0)
+END
+
+IF
+	OR (2)
+		GlobalTimerExpired("cast","locals")
+		!GlobalTimerExpired("alacre","locals")
+        GlobalGT("ONE","locals",0)
+	!Global("justtovary","locals",1)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	IncrementGlobal("one","locals",-1)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_SPOOK)
+	SetGlobal("castaquickspell","locals",1)
+	SetGlobal("justtovary","locals",1)
+END
+
+// will avoid variety checks if no spells of desired type
+IF
+	Global("nomorespells","locals",0)	//If I think I have spells to cast
+	Global("three","locals",0)	//but I'm out of them (apart from sanctuaries, heals, Zones of clean air, PFMW/deathspells and stoneskins)
+	Global("five","locals",0)
+	Global("one","locals",0)
+	Global("seven","locals",0)
+	Global("insects","locals",0)
+	Global("hold","locals",0)
+	Global("two","locals",0)
+	Global("eight","locals",0)
+	Global("flamestrike","locals",0)
+THEN
+	RESPONSE #100
+		SetGlobal("nomorespells","locals",1)  //then just stop waiting before attacking
+		// done first or script would loop thereafter
+END
+
+IF
+	Global("castaquickspell","locals",1)  //if I am sanctuarized and waiting for spell ambush
+	Global("three","locals",0)	//but don't have any quick spells to throw
+	Global("five","locals",0)
+	Global("hold","locals",0)
+	Global("two","Locals",0)
+	Global("one","locals",0)
+	!Global("Nomorespells","locals",1)	// or the script would loop here for eternity
+THEN
+	RESPONSE #100
+		SetGlobal("castaquickspell","locals",0)  //then just go ballistic with whatever I have
+END
+
+IF
+	Global("justtovary","locals",1)  //if I am to cast a damaging spell
+	Global("three","locals",0)	//but don't have any such spell
+	Global("two","Locals",0)
+	Global("one","locals",0)
+	Global("eight","locals",0)
+	Global("flamestrike","locals",0)
+	!Global("Nomorespells","locals",1)
+THEN
+	RESPONSE #100
+		SetGlobal("justtovary","locals",0)  //then just go ballistic with whatever I have
+END
+
+IF
+	Global("justtovary","locals",0)  //if I am to cast a debilitating spell spell
+	Global("three","locals",0)	//but don't have any such spell
+	Global("five","locals",0)
+	Global("seven","locals",0)
+	Global("one","locals",0)
+	Global("insects","locals",0)
+	Global("hold","locals",0)
+	!Global("Nomorespells","locals",1)
+THEN
+	RESPONSE #100
+		SetGlobal("justtovary","locals",1)  //then just go ballistic with whatever I have
+END
+
+/////////////////////////////////////////////////////////////////////
+// Use those weapons ... the half-attack or "cast and attack" method
+/////////////////////////////////////////////////////////////////////
+IF
+  OR (2)
+    Global("nomorespells","locals",1)	//I'm out of spells
+    !GlobalTimerExpired("Cast","LOCALS")	// or waiting for aura cleansing
+  OR (2)
+    GlobalTimerExpired("alacre","locals")  // NEVER attack while alacrity is in action!
+    Global("nomorespells","locals",1)	//unless it outlasts the spells
+  ActionListEmpty()
+  HasItem("MELFMET",Myself)
+	// notice that all these checks are more or less exornative, since script would stop at the spell section if any is present; still, I will doublecheck)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackReevaluate(LastSeenBy(Myself),10)
+END

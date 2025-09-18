@@ -1,0 +1,283 @@
+//notice: if you want to see some real sorc's script, see tb#mage for more spells and some small ideas for variating things
+
+IF
+  Global("prep","locals",0)
+THEN
+  RESPONSE #100
+	ReallyForceSpell(Myself,WIZARD_MIRROR_IMAGE)
+	ReallyForceSpell(Myself,WIZARD_MELF_METEOR)
+	ReallyForceSpell(Myself,WIZARD_STONE_SKIN)
+	ReallyForceSpell(Myself,WIZARD_SPIDER_SPAWN)	//it may even deal damage!
+	ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+	SetGlobal("prep","locals",1)
+	SetGlobalTimer("cast","locals",6)
+	SetGlobal("one","locals",6)
+	SetGlobal("two","locals",5)
+	SetGlobal("three","locals",5)
+	SetGlobal("four","locals",4)
+	SetGlobal("five","locals",6)
+	SetGlobal("six","locals",3)
+	SetGlobalTimer("pfmw","locals",24)
+	SetGlobalTimer("cast","locals",0)
+	Continue()
+END
+
+IF
+  GlobalTimerExpired("pfmw","locals")
+  GlobalGT("six","locals",0)
+  GlobalTimerExpired("cast","locals")
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+	SetGlobalTimer("pfmw","locals",24)
+	IncrementGlobal("six","locals",-1)
+	Continue()
+END
+
+IF
+  CheckStatLT(Myself,1,STONESKINS)
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("four","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(Myself,WIZARD_STONE_SKIN)
+	IncrementGlobal("four","locals",-1)
+END
+
+IF
+  !See([EVILCUTOFF.0.0.SPIDER_SWORD.0.SUMMONED])
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("four","locals",0)
+  !GlobalTimerNotExpired("spider","locals")
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SetGlobalTimer("spider","locals",12)
+	SpellNoDec(Myself,WIZARD_SPIDER_SPAWN)
+	IncrementGlobal("four","locals",-1)
+END
+
+IF
+	GlobalTimerExpired("Cast","LOCALS")
+        GlobalGT("six","locals",0)
+        See(NearestEnemyOfType([GOODCUTOFF.0.0.0.0.SUMMONED]))
+THEN
+  RESPONSE #100
+        SetGlobalTimer("Cast","LOCALS",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_DEATH_SPELL)
+	IncrementGlobal("six","locals",-1)
+END
+
+//wes's targeting, as usual
+//  SixthNearest.
+IF
+    !HasBounceEffects(SixthNearestEnemyOf(Myself))
+    !HasImmunityEffects(SixthNearestEnemyOf(Myself))
+    CheckStatLT(SixthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SixthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(SixthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FifthNearest.
+IF
+    !HasBounceEffects(FifthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FifthNearestEnemyOf(Myself))
+    CheckStatLT(FifthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FifthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(FifthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FourthNearest.
+IF
+    !HasBounceEffects(FourthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FourthNearestEnemyOf(Myself))
+    CheckStatLT(FourthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FourthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(FourthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  ThirdNearest.
+IF
+    !HasBounceEffects(ThirdNearestEnemyOf(Myself))
+    !HasImmunityEffects(ThirdNearestEnemyOf(Myself))
+    CheckStatLT(ThirdNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(ThirdNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+    See(ThirdNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  SecondNearest.
+IF
+    !HasBounceEffects(SecondNearestEnemyOf(Myself))
+    !HasImmunityEffects(SecondNearestEnemyOf(Myself))
+    CheckStatLT(SecondNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SecondNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+    See(SecondNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest.
+IF
+    !HasBounceEffects(NearestEnemyOf(Myself))
+    !HasImmunityEffects(NearestEnemyOf(Myself))
+    CheckStatLT(NearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOf(Myself),0,SANCTUARY)
+    See(NearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest CLERIC_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    CheckStatLT(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL])),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),0,SANCTUARY)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest MAGE_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL])),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]),0,SANCTUARY)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+
+IF
+  Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+THEN
+    RESPONSE #100
+             NoAction()
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("three","locals",0)
+  Global("remove","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(NearestEnemyOf(Myself),WIZARD_DISPEL_MAGIC)
+	IncrementGlobal("remove","locals",1)
+	IncrementGlobal("three","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  Global("malison","locals",0)
+  GlobalGT("four","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(NearestEnemyOf(Myself),WIZARD_GREATER_MALISON)
+	SetGlobal("malison","locals",1)
+	IncrementGlobal("four","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("five","locals",0)
+THEN
+  RESPONSE #75
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_FEEBLEMIND)
+	IncrementGlobal("five","locals",-1)
+  RESPONSE #25
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_CHAOS)
+	IncrementGlobal("five","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("three","locals",0)
+THEN
+  RESPONSE #75
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_FLAME_ARROW)
+	IncrementGlobal("three","locals",-1)
+  RESPONSE #25
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_SLOW)
+	IncrementGlobal("three","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("two","locals",0)
+THEN
+  RESPONSE #75
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_MELF_ACID_ARROW)
+	IncrementGlobal("two","locals",-1)
+  RESPONSE #25
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_HORROR)
+	IncrementGlobal("two","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("one","locals",0)
+THEN
+  RESPONSE #75
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_MAGIC_MISSILE)
+	IncrementGlobal("one","locals",-1)
+  RESPONSE #25
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_SPOOK)
+	IncrementGlobal("one","locals",-1)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  HasItem("melfmet", Myself)
+  !HasBounceEffects(LastSeenBy(Myself))
+  !GlobalTimerExpired("Cast","LOCALS")
+  ActionListEmpty()
+  !StateCheck(Myself,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+END
+
+IF
+  True()
+THEN
+RESPONSE #100
+NoAction()
+END

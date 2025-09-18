@@ -1,0 +1,23 @@
+IF
+	Global("tb#sucineridone","global",1)
+	Global("tb#aledrethhasspoken","global",7)
+	Global("tb#notloopingsucinerisspawn","global",0)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("tb#sucinericall","global",ONE_DAY)
+		SetGlobal("tb#notloopingsucinerisspawn","global",1)
+END
+
+
+IF
+	GlobalTimerExpired("tb#sucinericall","global")
+	Global("tb#sucineridone","global",1)
+	CombatCounter(0)
+THEN
+	RESPONSE #100
+		StartCutSceneMode()
+		SetGlobal("tb#sucineridone","global",2)
+		Wait(6)
+		CreateCreatureObjectOffScreen("tb#mage",Player1,0,0,0)
+		EndCutSceneMode()
+END

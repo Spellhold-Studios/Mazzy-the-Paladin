@@ -1,0 +1,8 @@
+IF
+  Global("mazzyisgoingtobeapaladin","global",0)
+  InParty("Mazzy")
+THEN
+  RESPONSE #100
+	CreateCreature("tb#biff",[2878.1137],4)
+	SetGlobal("mazzyisgoingtobeapaladin","global",1)
+END

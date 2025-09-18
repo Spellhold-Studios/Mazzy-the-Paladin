@@ -1,0 +1,23 @@
+@0    = ~Ah, <CHARNAME> has come back.~
+@1    = ~Are you ready for my mission?~
+@2    = ~Mazzy isn't with you, though.~
+@3    = ~My mission is for her ears only, sorry...~
+@4    = ~Ah, here's Mazzy too. Are you going to help us or not?~
+// @5    = ~(What was my line then?)~
+// @6    = ~(Ah yes!)~
+// @7    = ~Uh... hullo... My name is AR2000.bif, but people call me Biff the understudy.~
+/**/ @8    = ~Hold on adventurers, I need to talk with you. By the way, my name is Biff.~
+/**/ @9    = ~Anyway, I am here on the behalf of the mayor of Modena; I need to talk to Mazzy. You know, the halfling girl who dreams of being a paladin. Have you seen her?~
+@10   = ~Hey you, I'm here!~
+@11   = ~Dark and foul magic! Why do I hear the words of Mazzy, but do not see her?~
+@12   = ~I'M HERE! HEEEREEE! DO YOU NEED ME TO SPELL IT OUT? H-E-R-E!~
+@13   = ~Oh sorry... I dind't think that I had to kneel to talk to you. Anyways, I'm here to take you to Modena, because my mayor needs to talk to you. The fate of this town is in peril!~
+@14   = ~Will you come Mazzy?~
+@15   = ~And you, <CHARNAME> and the other folks?~
+@16   = ~And you, <CHARNAME>?~
+@17   = ~Of course we will help you out! Won't we, <CHARNAME>?~
+@18   = ~Yes, of course!~
+@19   = ~No, we do not have time, Pala and Danno need us.~
+@20   = ~Excellent. I will warp you there now.~
+@21   = ~Ok, I'll wait here for when you'll be ready...~
+

@@ -1,0 +1,227 @@
+IF
+  Global("prep","locals",0)
+THEN
+  RESPONSE #100
+	ReallyForceSpell(Myself,CLERIC_ARMOR_OF_FAITH)
+	ReallyForceSpell(Myself,CLERIC_BLESS)
+	ReallyForceSpell(Myself,CLERIC_BARKSKIN)
+	ReallyForceSpell(Myself,CLERIC_RESIST_FIRE)
+	ReallyForceSpell(Myself,CLERIC_PROTECTION_FROM_FIRE)
+	ReallyForceSpell(Myself,CLERIC_DEATH_WARD)
+	ReallyForceSpell(Myself,CLERIC_DEFENSIVE_HARMONY)
+	ReallyForceSpell(Myself,CLERIC_CALL_WOODLAND_BEINGS)		//may be pissing!
+	ReallyForceSpell(Myself,CLERIC_CONJURE_FIRE_ELEMENTAL)	//suppose you don't have the weapons (slight possibility, but may be if you are really unlucky.)
+	ReallyForceSpell(Myself,CLERIC_IRONSKIN)
+	ReallyForceSpellRES("tb#merik",Myself)
+	SetGlobal("prep","locals",1)
+	SetGlobalTimer("cast","locals",6)
+	SetGlobal("chrom","locals",4)
+	SetGlobal("charm","locals",4)
+	SetGlobal("insects","locals",2)
+	SetGlobal("lightning","locals",3)
+	SetGlobal("wood","locals",3)
+	SetGlobal("ip","locals",1)
+	SetGlobal("heal","locals",1)
+	Continue()
+END
+
+IF
+  HPPercentLT(Myself,30)
+  GlobalGT("heal","locals",0)
+  GlobalTimerExpired("cast","locals")
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(Myself,CLERIC_HEAL)
+	IncrementGlobal("heal","locals",-1)
+END
+
+IF
+  !See(SecondNearest([EVILCUTOFF.0.FAIRY]))
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("wood","locals",0)
+  !GlobalTimerNotExpired("nymph","locals")
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SetGlobalTimer("nymph","locals",12)
+	SpellNoDec(Myself,CLERIC_CALL_WOODLAND_BEINGS)	//always leave one up
+	IncrementGlobal("wood","locals",-1)
+END
+
+IF
+  See(Myself)
+  False()
+THEN
+  RESPONSE #100
+END
+
+// wes's targeting, again.
+//  SixthNearest.
+IF
+    !HasBounceEffects(SixthNearestEnemyOf(Myself))
+    !HasImmunityEffects(SixthNearestEnemyOf(Myself))
+    CheckStatLT(SixthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SixthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(SixthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FifthNearest.
+IF
+    !HasBounceEffects(FifthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FifthNearestEnemyOf(Myself))
+    CheckStatLT(FifthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FifthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(FifthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FourthNearest.
+IF
+    !HasBounceEffects(FourthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FourthNearestEnemyOf(Myself))
+    CheckStatLT(FourthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FourthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(FourthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  ThirdNearest.
+IF
+    !HasBounceEffects(ThirdNearestEnemyOf(Myself))
+    !HasImmunityEffects(ThirdNearestEnemyOf(Myself))
+    CheckStatLT(ThirdNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(ThirdNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+    See(ThirdNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  SecondNearest.
+IF
+    !HasBounceEffects(SecondNearestEnemyOf(Myself))
+    !HasImmunityEffects(SecondNearestEnemyOf(Myself))
+    CheckStatLT(SecondNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SecondNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+    See(SecondNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest.
+IF
+    !HasBounceEffects(NearestEnemyOf(Myself))
+    !HasImmunityEffects(NearestEnemyOf(Myself))
+    CheckStatLT(NearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOf(Myself),0,SANCTUARY)
+    See(NearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest CLERIC_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    CheckStatLT(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL])),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),0,SANCTUARY)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest MAGE_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL])),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]),0,SANCTUARY)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+
+IF
+  Allegiance(LastSeenBy(Myself),EVILCUTOFF)
+THEN
+    RESPONSE #100
+             NoAction()
+END
+
+IF
+  GlobalGT("IP","locals",0)
+  GlobalTimerExpired("cast","locals")
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_INSECT_PLAGUE)
+	IncrementGlobal("IP","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("chrom","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDecRES("spdr101",LastSeenBy(Myself))	//druid chromatic orb: it may even work, after lorun's g malison. 12th= ... you know
+	IncrementGlobal("chrom","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("lightning","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDecRES("spdr301",LastSeenBy(Myself))	//I know it will bounce on me, but I'd like the risk for some 1% of fun
+	IncrementGlobal("lightning","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("insects","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_SUMMON_INSECTS)	// the 3rd level, it is wondering it does sometimes even work
+	IncrementGlobal("insects","locals",-1)
+END
+
+IF
+  GlobalTimerExpired("cast","locals")
+  GlobalGT("charme","locals",0)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),CLERIC_ANIMAL_FRIENDSHIP)
+	IncrementGlobal("charme","locals",-1)
+END
+
+
+IF
+  !GlobalTimerExpired("cast","locals")
+THEN
+  RESPONSE #100
+	AttackReevaluate(NearestEnemyOf(Myself),10)
+END

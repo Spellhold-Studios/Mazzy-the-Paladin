@@ -1,0 +1,27 @@
+IF
+See(Player1)
+Global("1","locals",0)
+THEN
+RESPONSE #100
+FaceObject(Player1)
+StartDialogueNoSet(Player1)
+SetGlobal("1","locals",1)
+END
+
+IF
+See(Player1)
+Global("tb#robinisdone","global",0)
+Dead("tb#sandy")
+THEN
+RESPONSE #100
+StartDialogueNoSet(Player1)
+SetGlobal("tb#robinisdone","global",1)
+END
+
+IF
+Global("tb#robinisdone","global",1)
+Delay(6)
+THEN
+RESPONSE #100
+DestroySelf()
+END

@@ -1,0 +1,77 @@
+@0    = ~Do you have my boots now?~
+@1    = ~I think I'll just kill you, it's swiftier.~
+@2    = ~Isn't it possible, by chanche, that these are your boots?~
+@3    = ~Here you are!~
+@4    = ~Not at the moment.~
+@5    = ~So, what exactly do you want of me?~
+@6    = ~I just wanted to talk a little before killing you.~
+@7    = ~Could you please explain why people in this town say that you threaten them?~
+@8    = ~I'm not threatening anybody! I lived here from really a long time, perhaps even before your father was born.~
+@9    = ~I doubt so. My father was Bhaal, the God of Murder. Now I shall follow his trails. Prepare yourself!~
+@10   = ~Yes, but they came and asked us to find a way to stop your threats.~
+@11   = ~Ah.. I see what are you refering to. Well, saying that I "threaten" anybody is somewhat excessive.~
+@12   = ~No, it's just "rightful avarice", or "I want back my stuff".~
+@13   = ~The problem is that Gyron, a dweller in this town, had decided to steal my magical boots of the North.~
+@14   = ~I decided to involve all the town, so that he would maybe give me my boots to avoid innocent peopel getting involved. He still hasn't given me my boots, though.~
+@15   = ~Monster! How you dare involve innocents? I'll punish you!~
+@16   = ~It seems like you are the right guy. I'll go and ask a pair of questions to Gyron...~
+@17   = ~Gyron is dead, I killed him, but I don't have his boots with me right now.~
+@18   = ~Good luck in finding them, <RACE>!~
+@19   = ~Search for my boots, please! I want them back.~
+@20   = ~Yes! These are indeed my boots!~
+@21   = ~Thank you, thank you very much. I'll leave Modena in peace, now.~
+@22   = ~*You* dare threaten me?~
+@23   = ~Humility is in order!~
+@24   = ~So, <CHARNAME>, I assume you are the one I should talk to. What is this trouble about me threatening this town? I live here from centuries, you know.~
+@25   = ~I've heard enough. Prepare to die, lich.~
+@26   = ~You live here? What about that huge monster next to you?~
+@27   = ~You mean little nice Terry? He is my pet guard.~
+@28   = ~After what happened to me with one of my human friends, now I only keep non-intelligent friends.~
+@29   = ~Why? What happened with your friend?~
+@30   = ~I see. Could you please explain why people in this town say that you threaten them?~
+@31   = ~So, now, will you finish taking solace with my own spiritual wounds?~
+@32   = ~Yes, I will end your sufferances right now.~
+@33   = ~I'm not rejoicing in your loss, I was just curious as to why you are traveling with such a beast.~
+@34   = ~This is no business of yours.~
+@35   = ~No, I'm really interested.~
+@36   = ~Very well, but mind, it's a really sad story.~
+@37   = ~This is a true story, mind you, it's real life! You may not understand this story so well, but it makes sense:~
+@38   = ~I'll speak of a lost friend, one who dwelt in umid caves and liked this... Or should I speak about how He died, by His own hand?
+A soul too upset, a hand too quick...~
+@39   = ~His name, Luca, was the shortest among His friends, but He was the longest.
+First in laughs, first in plays, first in love, but last in study. He loved life and joked about death; He hated but tollerated, liked but mocked, loved but used. He was a realist in life, but He *knew* dreams. He did everything He pleased, but wasn't afraid of doing what He hated.
+He wanted to die, and needed a weapon: He stole His father's one.~
+@40   = ~A soul too upset, a hand too quick...~
+@41   = ~He asked his father for gifts, His father accomplished. He asked His father to teach him life, His father did not accomplish.
+He asked His friends for jokes, His friends accomplished. He asked His friends for understanding, His friends did not accomplish.
+He asked girls for sex, girls accomplihshed. He asked girls for love, girls did not accomplish.
+He asked life for success, life accomplished. He asked life for a meaning, life did not accomplish.
+He asked death for a meaning, death accomplished. Thus He died, from His father's weapon, which He had stolen.~
+@42   = ~He walked in the country, there He knew life was over.~
+@43   = ~He took His father's weapon, and learned how to use it. He loved His friends, and told them He had some last-minute delay: they could go without Him.
+He loved them, and told them life was good. One of His friends wanted to die, but he was swayed by Him. He was asked for understanding, He accomplished. He asked for understanding, but nobody understood.
+There He paced, behind that bush, there He walked up and down and thought.~
+@44   = ~What did He live for? What was the scope of life? Why nobody understood Him? Why others gave Him gifts, never words? Why words, and not something deeper?
+What did He seek in mankind? Mankind gave Him pubblic success, but He lived in private. He had a regret, a regret was eating Him at his core. His mother was ill, very ill; but He loved His mother, and suffered with her.
+What did He think when walking up and down the bush, while His whole life passed before Him?~
+@45   = ~In a moment He realized: life had a meaning: to end in death. O, foul thought! Why did He *know* this? Who teached Him about?
+There was no time for a second thought! He grabbed the gun, pointed at His head and shot. His neighbour heard Him: he called medicians: they rushed to the hospital: but emptiness was too strong. He died.~
+@46   = ~His friends reached Him, they understood Him: but it was too late, too late. He had died.
+Men teared out their beard, women their hair, then they cried, they cried. Their cries were heard from afar, and everybody knew Luca had died.
+O, foul magic! That His eyes were torn out, to give sight to the blind: why magic couldn't save Him?~
+@47   = ~Adventurers at my door, I suppose? What do you want of me now?~
+@48   = ~Ah, we've finally found you, lich. Stop threatening Modena now!~
+@49   = ~Let's talk about this. Who are you to ask something this way, for starters?~
+@50   = ~(Let Mazzy continue talking)~
+@51   = ~Mazzy was too kind. We just want to kill you.~
+@52   = ~(Mazzy, please, let me do the talking). My name is <CHARNAME>, the halfling who was talking to you was Mazzy.~
+@53   = ~I am Mazzy Fentan, former Truesword of Arvoreen.~
+@54   = ~"Former" Truesword of Arvoreen, eh? Did you make your God angry? How funny!~
+@55   = ~Stop insulting me, monster.~
+@56   = ~Are you threatening me? You little child shouldn't use a sword, you could hurt yourself!~
+@57   = ~These are your last words, undead. Prepare for your True Death!~
+@58   = ~I am Mazzy Fentan, Truesword of Arvoreen.~
+@59   = ~You are really self-confident in giving away your name so easily. I won't tell you mine. You can call me Exxer, though.~
+@60   = ~Very well Exxer, now that we have dealt with presentations, let me ask again to explain why are you threatening this town.~
+@61   = ~I am not threatening this town. I only live here.~
+@62   = ~And so, why do they say that I should pose an end to your threats?~

@@ -1,0 +1,45 @@
+IF
+  HPPercentLT(Myself,50)
+  HasItem("potn52",Myself)
+THEN
+  RESPONSE #100
+	UseItem("potn52",Myself)
+END
+
+IF
+  HasItem("potn14",Myself)
+THEN
+  RESPONSE #100
+	UseItem("Potn14",Myself)
+END
+
+IF
+AttackedBy([ANYONE],DEFAULT)
+Range(NearestEnemyOf(),4)
+HasItem("bolt04",Myself)
+THEN
+RESPONSE #100
+RunAwayFrom(NearestEnemyOf(),75)
+END
+
+
+IF
+  See(NearestEnemyOf(Myself))
+  HasItem("Bolt04",Myself)
+  !HasBounceEffects(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackReevaluate(LastSeenBy(Myself),10)
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+  OR(2)
+  !HasItem("bolt04",Myself)
+  HasBounceEffects(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+	EquipMostDamagingMelee()
+	AttackReevaluate(LastSeenBy(Myself),10)
+END

@@ -1,0 +1,312 @@
+IF
+  Die()
+  !Dead("tb#terry")
+THEN
+    RESPONSE #100
+    	     DisplayStringHead("tb#terry",999999)
+    	     ActionOverride("tb#terry",DestroySelf())
+    	     ReallyForceSpellDead(Myself,WIZARD_FREEDOM)
+	     Continue()
+END
+
+IF
+  Die()
+  Global("mazzyisnotgoingtobeapaladin","global",0)
+THEN
+    RESPONSE #100
+    	     ActionOverride("Mazzy",CreateCreature("tb#arvor",[-1.-1],0))
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  See([PC])
+  Global("talked","locals",0)
+THEN
+  RESPONSE #100
+	StartDialogueNoSet(LastSeenBy(Myself))
+	SetGlobal("talked","locals",1)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+	NoAction()
+END
+
+IF
+    Global("Prep","LOCALS",0)
+THEN
+  RESPONSE #100
+      ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_EVIL)
+      ReallyForceSpell(Myself,WIZARD_BLUR)
+      //ReallyForceSpell(Myself,WIZARD_MIRROR_IMAGE) To help cavaliers...
+      ReallyForceSpell(Myself,WIZARD_SPELL_TRAP)
+	// no prot from fire as it will allow arvoreen's gift to work
+	ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_COLD)
+      ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_ACID)
+      ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_ELECTRICITY)
+      ReallyForceSpell(Myself,WIZARD_MELF_METEOR)
+      ReallyForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_ENERGY)
+      ReallyForceSpell(Myself,WIZARD_STONE_SKIN)
+      ReallyForceSpell(Myself,WIZARD_ARMOR)
+      SetGlobal("Prep","LOCALS",1)
+      SetGlobalTimer("Cast","LOCALS",0)
+      SetGlobalTimer("ProMagic","LOCALS",0)
+	SetGlobal("immunity","locals",4)
+	SetGlobal("chain","locals",1)
+	SetGlobal("trig","locals",1)
+	SetGlobal("abi","locals",5)
+	SetGlobal("stun","locals",1)
+	SetGlobal("seq","locals",1)
+	SetGlobal("mord","locals",2)
+	SetGlobal("fod","locals",2)
+	SetGlobal("ssk","locals",4)
+	SetGlobalTimer("cast","locals",0)
+	// a little number of spells: he had depleted them against a mouse. Really.
+      Continue()
+END
+
+IF
+  Global("chain","locals",0)
+  Global("trig","locals",0)
+  Global("abi","locals",0)
+  Global("stun","locals",0)
+  Global("seq","locals",0)
+  Global("mord","locals",0)
+THEN
+    RESPONSE #100
+    	     SetGlobal("castnattack","locals",1)
+    	     Continue()
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  !GlobalTimerNotExpired("promagic","locals")
+  GlobalGT("immunity","locals",0)
+THEN
+RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(Myself,WIZARD_ABSOLUTE_IMMUNITY)	//this will alow arvoreen's gift to work, yadda yadda
+	SetGlobalTimer("promagic","locals",24)
+    SetGlobal("castnattack","locals",1)
+	IncrementGlobal("immunity","locals",-1)
+END
+
+IF
+  Global("chain","locals",1)
+  HPPercentLT(Myself,100)
+THEN
+RESPONSE #100
+	SetGlobal("chain","locals",0)
+	ReallyForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)	//I wanted to be creative from Wes's usual strategies
+	ReallyForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+	ReallyForceSpell(Myself,WIZARD_MORDENKAINENS_SWORD)
+	DisplayString(Myself,26328)
+    SetGlobal("castnattack","locals",1)
+	Continue()
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("ssk","locals",0)
+  CheckStatLT(Myself,1,STONESKINS)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(Myself,WIZARD_STONE_SKIN)
+	IncrementGlobal("ssk","locals",-1)
+    SetGlobal("castnattack","locals",1)
+END
+
+
+//usual copy/paste from wes's targeting
+
+//  SixthNearest.
+IF
+    !HasBounceEffects(SixthNearestEnemyOf(Myself))
+    !HasImmunityEffects(SixthNearestEnemyOf(Myself))
+    CheckStatLT(SixthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SixthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(SixthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FifthNearest.
+IF
+    !HasBounceEffects(FifthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FifthNearestEnemyOf(Myself))
+    CheckStatLT(FifthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FifthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(FifthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  FourthNearest.
+IF
+    !HasBounceEffects(FourthNearestEnemyOf(Myself))
+    !HasImmunityEffects(FourthNearestEnemyOf(Myself))
+    CheckStatLT(FourthNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(FourthNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+    See(FourthNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  ThirdNearest.
+IF
+    !HasBounceEffects(ThirdNearestEnemyOf(Myself))
+    !HasImmunityEffects(ThirdNearestEnemyOf(Myself))
+    CheckStatLT(ThirdNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(ThirdNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+    See(ThirdNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  SecondNearest.
+IF
+    !HasBounceEffects(SecondNearestEnemyOf(Myself))
+    !HasImmunityEffects(SecondNearestEnemyOf(Myself))
+    CheckStatLT(SecondNearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(SecondNearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+    See(SecondNearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest.
+IF
+    !HasBounceEffects(NearestEnemyOf(Myself))
+    !HasImmunityEffects(NearestEnemyOf(Myself))
+    CheckStatLT(NearestEnemyOf(Myself),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOf(Myself),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOf(Myself),0,SANCTUARY)
+    See(NearestEnemyOf(Myself))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest CLERIC_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    CheckStatLT(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),50,RESISTMAGIC)
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL])),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]),0,SANCTUARY)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.CLERIC_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+//  Nearest MAGE_ALL.
+IF
+    !HasBounceEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    !HasImmunityEffects(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    //!StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL])),STATE_OUT_OF_ACTION)
+    !StateCheck(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]),STATE_IMPROVEDINVISIBILITY)
+    CheckStat(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]),0,SANCTUARY)
+    See(NearestEnemyOfType([GOODCUTOFF.0.0.MAGE_ALL]))
+    False()
+THEN
+    RESPONSE #100
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  Global("seq","locals",1)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	ReallyForceSpell(LastSeenBy(Myself),WIZARD_DISPEL_MAGIC)	//this seq is going to piss off against terry
+	ReallyForceSpell(LastSeenBy(Myself),WIZARD_GREATER_MALISON)
+	ReallyForceSpell(LastSeenBy(Myself),WIZARD_SLOW)
+	DisplayString(Myself,25951)
+	SetGlobal("seq","locals",0)
+    SetGlobal("castnattack","locals",1)
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  Global("trig","locals",1)
+THEN
+  RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	ReallyForceSpell(LastSeenBy(Myself),WIZARD_CHAOS)
+	ReallyForceSpell(LastSeenBy(Myself),WIZARD_CHAIN_LIGHTNING)
+	ReallyForceSpell(LastSeenBy(Myself),WIZARD_FEEBLEMIND)	//slight change from the canonical.
+        DisplayString(Myself,26243)
+    SetGlobal("castnattack","locals",1)
+	SetGlobal("trig","locals",0)
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("stun","locals",0)
+THEN
+RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_SYMBOL_STUN)
+    SetGlobal("castnattack","locals",1)
+	IncrementGlobal("stun","locals",-1)
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("abi","locals",0)
+THEN
+RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)
+    SetGlobal("castnattack","locals",1)
+	IncrementGlobal("abi","locals",-1)
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("fod","locals",0)
+THEN
+RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(LastSeenBy(Myself),WIZARD_FINGER_OF_DEATH)
+    	SetGlobal("castnattack","locals",1)
+	IncrementGlobal("fod","locals",-1)
+END
+
+IF
+  !GlobalTimerNotExpired("cast","locals")
+  GlobalGT("mord","locals",0)
+THEN
+RESPONSE #100
+	SetGlobalTimer("cast","locals",6)
+	SpellNoDec(Myself,WIZARD_MORDENKAINENS_SWORD)
+    SetGlobal("castnattack","locals",1)
+	IncrementGlobal("stun","locals",-1)
+END
+
+IF
+  HasItem("melfmet", Myself)
+  !HasBounceEffects(LastSeenBy(Myself))
+  !GlobalTimerExpired("Cast","LOCALS")
+  Global("castnattack","locals",1)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    EquipRanged()
+    AttackOneRound(LastSeenBy(Myself))
+    SetGlobal("castnattack","locals",0)
+END

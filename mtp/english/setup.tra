@@ -1,0 +1,253 @@
+@0    = ~Mazzy the Paladin~
+@1    = ~Mazzy has been granted stronger weapons by Arvoreen~
+@2    = ~Vampire Flail +5~
+@3    = ~Vampire Flail +5
+  <CHARNAME> had gained this flail while fighting with the commander in chief of the Cowled WIzards: Surenici.
+
+STATISTICS:
+
+Combat Abilities:
+   33% chance each hit that target will be level-drained of 1 level (no save)
+
+THACO:  +5 bonus
+Damage:  1D6 + 6
+Damage type:  crushing
+Weight: 8
+Speed Factor: 2
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires:
+-  10 Strength
+-  12 Dexterity
+Unusable By:
+ Beastmaster
+ Mage
+ Thief
+ Druid (all)~
+@4    = ~Surenici~
+@5    = ~Simulacrum of Surenici~
+@6    = ~Image of Surenici~
+@7    = ~Skipping TOB content~
+@8    = ~Finally! I'm free! Thank you very much!~
+@9    = ~Exxer~
+@10   = ~Apparition~
+@11   = ~Boxx the Mayor~
+@13   = ~Gyron~
+@15   = ~Shire's Guard~
+@16   = ~Robin Smallburrow~
+@17   = ~Ted Sandy~
+@18   = ~Merik~
+@19   = ~Phaladriel~
+@20   = ~Biff the Understudy~
+@21   = ~Lorun~
+@22   = ~Aledreth~
+@23   = ~Aledreth's Swashbuckler~
+@24   = ~Aledreth's Bounty Hunter~
+@25   = ~Aledreth's Assassin~
+@26   = ~Tarasque~
+@27   = ~Short sword~
+@28   = ~Sting~
+@29   = ~Short sword
+The short sword is the first type of sword to come into existence.  In the simplest of terms, a short sword can be considered a dagger with a blade so long that it can no longer be called a dagger.  The term short sword does not exist in sword classifications.  However, it has come to be used to describe a double-edged blade about two feet in length.  The sword tip is usually pointed, ideal for thrusting.
+
+STATISTICS:
+
+Damage:  1D6+1
+Damage type:  piercing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Short Sword
+Type:  1-handed
+Requires:
+-  6 Strength
+-  6 Dexterity
+Unusable By:
+ Non-Halfling
+ Cleric~
+@30   = ~Short Sword +3 : Sting
+Ancient lore says that this sword was forged by a bard named Tolkien, in a far away land called Middle Earth, to fight against Orcs. Unfortunately, it's so short that only an hobbit... ehm Halfling could use it.
+
+STATISTICS:
+Thac0: +3, +5 vs Orcs
+Damage: 1d6+3, +5 vs. Orcs
+Damage type:  piercing
+Weight: 3
+Speed Factor: 0
+Proficiency Type: Short Sword
+Type:  1-handed
+Requires:
+-  6 Strength
+-  6 Dexterity
+Unusable By:
+ Non-Halfling
+ Cleric~
+@31   = ~Sauron's Ring~
+@32   = ~Ring of Supreme Invisibility
+
+Ancient lore says that this ring was forged by a bard named Tolkien, in a far away land called Middle Earth. Others say that it was forged by Sauron, instead.
+
+Anyway, if you use it, be prepared to face his followers... but you'll become invisible!
+However, there is a chance (20%) that you are drained towards the Shade existance, and will thus suffer 30 damage of cold.
+
+STATISTICS:
+Always non-detection
+Once per day: Improved Invisibility.
+
+USABLE BY:
+Anybody.~
+@33   = ~Arovoreen's Sword~
+@34   = ~Short Sword +6 : Arvoreen's Sword
+
+This sword is the only thing capable of hitting Exxer when he is protected by magic.
+
+USABLE BY:
+Mazzy.~
+@35   = ~Anti-Undead scroll
+
+Thanks to this scroll, Exxer won't be able of seeing you. But use it only after talking to him!~
+@38   = ~Arvoreen's Blessed Sword~
+@39   = ~Arvoreen's +3 Sword
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+
+STATISTICS:
+Immunity to stun and Slow
+If an enemy is hit, ST vs wands or reduce Movement Factor by 2 for three rounds
+
++3 thac0
+1d6 + 3 damage, +2 acid
+Damage type:  piercing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By: Mazzy~
+@40   = ~Arvoreen's +5 Sword
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+Mazzy is a symbol of Arvoreen's justice, and thus her weapons are now even sronger.
+
+STATISTICS:
+
+Freedom of Action, Draw Upon Holy Might, Chaotic Commands, + 40% magic resistance on user
+Every enemy hitten must save vs wands at -4 or suffer the effect of the spell "Slow"
+
++5 thac0
+1d6 + 5 damage, +3 acid
+Damage type:  piercing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By: Mazzy~
+@41   = ~Arvoreen's +5 Sword
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+Mazzy is a symbol of Arvoreen's justice, and thus her weapons are now even sronger.
+
+STATISTICS:
+
+Freedom of Action, Draw Upon Holy Might, Chaotic Commands, + 40% magic resistance on user
+Every enemy hitten must save vs wands at -4 or suffer the effect of the spell "Slow"
+Heals 1 HP every melee hit; 5% chance of casting "mass heal"
+
++5 thac0
+2d4 + 5 damage, +3 acid
+Damage type:  piercing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By: Mazzy~
+@42   = ~Arvoreen's +5 Sword
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+Mazzy is a symbol of Arvoreen's justice, and thus her weapons are now even sronger.
+
+STATISTICS:
+
+Freedom of Action, Draw Upon Holy Might, Chaotic Commands, + 40% magic resistance on user
+Every enemy hitten must save vs wands at -4 or suffer the effect of the spell "Slow"
+
++5 thac0
+1d6 damage + 12 poison over 6 seconds (no save)
+Damage type:  piercing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By: Mazzy~
+@43   = ~Arvoreen's +5 Sword
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+Mazzy is a symbol of Arvoreen's justice, and thus her weapons are now even sronger.
+
+STATISTICS:
+Freedom of Action, Draw Upon Holy Might, Chaotic Commands, + 40% magic resistance on user
+Every enemy hitten must save vs wands at -4 or suffer the effect of the spell "Slow"
+Slay Undead unless save at -4
+5% of casting False Dawn
+
+1d6 + 5 damage + 3 fire
++5 thac0
+Damage type:  piercing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By: Mazzy~
+@44   = ~Arvoreen's Blessed Bow~
+@45   = ~Arvoreen's +3 Bow
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+
+STATISTIC:
++ 3 damage, +1 acid
++3 thac0
+
+Weight: 2
+Speed Factor: 5
+Proficiency Type: Short Bow
+Type:  2-handed
+
+Usable only by: Mazzy~
+@46   = ~Arvoreen's +4 Bow
+
+Now that Mazzy is a Paladin, Arvoreen has granted her with cool stronger weapons.
+Mazzy is a symbol of Arvoreen's justice, and thus her weapons are now even sronger.
+
+STATISTIC:
++ 4 damage, +2 acid
++4 thac0
++1 Attacks per round (over the 2nd granted by any bow)
+Applies strenght bonuses to damage.
+
+Weight: 2
+Speed Factor: 5
+Proficiency Type: Short Bow
+Type:  2-handed
+
+
+Usable only by: Mazzy~
+@47   = ~Arvoreen's Handicap Bow~
+@48   = ~Arvoreen's Cavalier's Bow
+
+Now that Mazzy is a Cavalier, Arvoreen has granted her with cool stronger weapons.
+This bow has special enchantments put on it, making it really feeble, but also usable by cavaliers... Well, only Mazzy.
+
+STATISTICS:
+1d6 damage
+
+Weight: 2
+Speed Factor: 5
+Proficiency Type: Short Bow
+Type:  2-handed
+
+Usable only by: Mazzy~
+@49   = ~Anti-Magic scroll
+
+Use this scroll on Exxer and he won't be able of casting spells against you.~
+/**/ @50 = ~Loses Arvoreen's blessing and spells~
+
+
+@60   = ~This component is already installed through another mod, skipping...~

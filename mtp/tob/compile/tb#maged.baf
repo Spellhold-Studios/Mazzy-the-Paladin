@@ -1,0 +1,144 @@
+//Surenici's Simulacrum AI
+// originary level: 18/22/18 R/C/S
+// NEW level	  : 9 /13/9  R/C/S
+// C spells: 5-4-4-3-2-1
+// S spells: 6-6-6-4-2 (actually, the 2 5th lelev spells are gifted by the DM to unallow deathspell or remove magic)
+// C & S spells aren't restored by Lesser restoration alone, alas... (well, S spells are, but I use him as a meleer)
+// My C spells are different from master's C spells, but still... (New spells: the *aid* marked ones)
+// has memorized: hardiness, smite, critical, power attack, WW, GWW (10): I am a fighting guy, differently from my master, so will use these spells. To be more precise, only Smite and GWW, since I'm not Imp hasted. Smite & CS if Hard +, since I will cheese ImpHaste)
+
+// sorc1 : Spook
+// sorc2 : Mirror Images, Blur, horror
+// sorc3 : Slow
+// sorc4 : Improved Invisibility, Fireshield:red, StoneSkin
+// sorc5 : Spell Immunity
+
+// prie1 : Armor of Faith, Remove Fear, Bless, *pro-evil*, (1 missing)
+// prie2 : Chant, DUHM, Resist FireCold, Barskin, *Aid*
+// prie3 : Prot from Fire, (3 missing)
+// prie4 : Death Ward, FreeAction, Holy Might, *Lesser restoration* (to offset Simulacrum's level drain, as possible...)
+// prie5 : Chaotic Commands, *Righteous magic*
+// prie6 : Heal
+
+// My purpouse is to provide fighting abilities. I won't spellcast that much, so I've memorized only a bunch of prepping spells, aimed to that scope. (3 missing) are offensive spells, inherited by the main character but not used.
+// I will use quick debil spells in between attacks (E.G. Slow)
+IF
+  Die()
+THEN
+    RESPONSE #100
+    	     DestroySelf()
+END
+
+IF
+  Global("prep","locals",0)
+THEN
+    RESPONSE #100
+    	     ApplySpellRES("simulacr",Myself)
+END
+
+IF
+        Global("prep","locals",0)
+	Difficulty(HARDEST)
+THEN
+    	RESPONSE #100
+		 ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_DIVINATION)
+		 ReallyForceSpell(Myself,WIZARD_SPELL_SHIELD)
+		 Continue()
+END
+
+IF
+        Global("prep","locals",0)
+	DifficultyGT(NORMAL)
+THEN
+    	RESPONSE #100
+		 ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+		ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_ABJURATION)
+		ReallyForceSpell(Myself,WIZARD_SPELL_IMMUNITY_NECROMANCY)  //no  quick & cheap remove magic or death spell to eradicate
+		 Continue()
+END
+
+IF
+        Global("prep","locals",0)
+	DifficultyGT(EASY)
+THEN
+    	RESPONSE #100
+		 ReallyForceSpell(Myself,CLERIC_LESSER_RESTORATION)
+		 Continue()
+END
+
+IF
+	Global("prep","locals",0)
+THEN
+	RESPONSE #100
+		ReallyForceSpell(Myself,WIZARD_STONE_SKIN)
+		ReallyForceSpell(Myself,WIZARD_MIRROR_IMAGE)
+		ReallyForceSpell(Myself,WIZARD_BLUR)
+		ReallyForceSpell(Myself,WIZARD_FIRE_SHIELD_RED)
+		ReallyForceSpell(Myself,WIZARD_IMPROVED_INVISIBILITY)
+		ReallyForceSpell(Myself,CLERIC_ARMOR_OF_FAITH)
+		ReallyForceSpell(Myself,CLERIC_REMOVE_FEAR)
+		ReallyForceSpell(Myself,CLERIC_PROTECT_FROM_EVIL)
+		ReallyForceSpell(Myself,CLERIC_BLESS)
+		ReallyForceSpell(Myself,CLERIC_CHANT)
+		ReallyForceSpell(Myself,CLERIC_BARKSKIN)
+		ReallyForceSpell(Myself,CLERIC_RESIST_FIRE)
+		ReallyForceSpell(Myself,CLERIC_AID)
+		ReallyForceSpell(Myself,CLERIC_PROTECTION_FROM_FIRE)
+		ReallyForceSpell(Myself,CLERIC_DEATH_WARD)
+		ReallyForceSpell(Myself,CLERIC_FREE_ACTION)
+		ReallyForceSpell(Myself,CLERIC_HOLY_POWER)
+		ReallyForceSpell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)
+		ReallyForceSpell(Myself,CLERIC_CHAOTIC_COMMANDS)
+		ReallyForceSpell(Myself,CLERIC_RIGHTEOUS_MAGIC)
+		ReallyForceSpell(Myself,WARRIOR_HARDINESS)
+		SetGlobal("smite","locals",1)
+		SetGlobal("gww","locals",10)
+		SetGlobal("four","locals",1)
+		SetGlobal("heal","locals",1)
+		SetGlobal("prep","locals",1)
+		SetGlobalTimer("cast","locals",1)
+
+END
+
+// healing & stoneskinning
+IF
+	GlobalTimerExpired("cast","locals")
+	GlobalGT("heal","locals",0)
+	HPPercentLT(Myself,20)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("cast","locals",6)
+		SpellNoDec(Myself,CLERIC_HEAL)
+		IncrementGlobal("heal","locals",-1)
+END
+
+IF
+  	CheckStatLT(Myself,1,STONESKINS)
+  	GlobalTimerExpired("cast","locals")
+  	GlobalGT("four","locals",0)
+THEN
+  	RESPONSE #100
+		SetGlobalTimer("cast","locals",6)
+		SpellNoDec(Myself,WIZARD_STONE_SKIN)
+		IncrementGlobal("four","locals",-1)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Greater whirlwind (was orignally Critical Strike, but I didn't have Imp haste, so...
+/////////////////////////////////////////////////////////////////////
+IF
+        DifficultyGT(NORMAL)
+THEN
+        RESPONSE #100
+          	ReallyForceSpell(Myself,WARRIOR_CRITICAL_STRIKE)
+          	AttackOneRound(NearestEnemyOf())
+END
+
+IF
+        DifficultyLT(HARD)
+THEN
+        RESPONSE #100
+          	ReallyForceSpell(Myself,WARRIOR_GREATER_WHIRLWIND)
+          	AttackOneRound(NearestEnemyOf())
+END
+

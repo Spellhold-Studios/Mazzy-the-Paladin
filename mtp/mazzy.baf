@@ -1,0 +1,10 @@
+IF
+  GlobalTimerNotExpired("tb#mazzypctimer","global")
+  InParty(Myself)
+  See(Player1)
+  Global("tb#mazzypcblock","locals",0)
+THEN
+    RESPONSE #100
+    	     Interact(Player1)
+END
+

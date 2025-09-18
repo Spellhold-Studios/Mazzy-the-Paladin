@@ -1,0 +1,65 @@
+IF
+Global("tb#robinisdone","global",1)
+  !Allegiance(Myself,ENEMY)
+Delay(6)
+THEN
+RESPONSE #100
+DestroySelf()
+END
+
+IF
+  Global("tb#SHireguardswillhelpme","global",1)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+	Enemy()
+	Continue()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+	FaceObject(Player1)
+	NoAction()
+END
+
+IF
+  HasItem("bull01",Myself)
+THEN
+  RESPONSE #100
+	EquipRanged()
+	Continue()
+END
+
+IF
+  !HasItem("bull01",Myself)
+THEN
+  RESPONSE #100
+	EquipMostDamagingMelee()
+	Continue()
+END
+
+IF
+  See(Player1)
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+	AttackReevaluate(LastSeenBy(Myself),10)
+END
+
+IF
+  See(NearestEnemyOfType([PC]))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+  RESPONSE #100
+	AttackReevaluate(LastSeenBy(Myself),10)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+        !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(Myself),10)
+END

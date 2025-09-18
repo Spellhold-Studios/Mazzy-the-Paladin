@@ -1,0 +1,121 @@
+IF
+    !Allegiance(Myself,ENEMY)
+    OR(13)
+      AttackedBy([GOODCUTOFF.0.0.0.0.SUMMONED],DEFAULT)
+      AttackedBy([PC],DEFAULT)
+      AttackedBy([FAMILIAR],DEFAULT)
+      AttackedBy([ALLY],DEFAULT)
+      AttackedBy([CONTROLLED],DEFAULT)
+      AttackedBy([CHARMED],DEFAULT)
+      SpellCastOnMe([GOODCUTOFF.0.0.0.0.SUMMONED],0)
+      SpellCastOnMe([PC],0)
+      SpellCastOnMe([FAMILIAR],0)
+      SpellCastOnMe([ALLY],0)
+      SpellCastOnMe([CONTROLLED],0)
+      SpellCastOnMe([CHARMED],0)
+      Global("discoveredtheft","locals",1)
+THEN
+  RESPONSE #100
+ 	StartCutSceneMode()
+     Enemy()
+	ReallyForceSpell(Myself,CLERIC_HEAL)
+	DestroyItem("minhp1")
+	CreateCreatureObject("tb#phala",Myself,1,0,0)
+	CreateCreatureObject("tb#merik",Myself,1,0,0)
+	CreateCreatureObject("tb#lorun",Myself,1,0,0)
+	SetGlobal("violence","locals",1)
+	EndCutSceneMode()
+	StartDialogueNoSet(Player1)
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+END
+
+
+IF
+  Allegiance(Myself,ENEMY)
+  Global("started","locals",1)	//= going to duel
+THEN
+  RESPONSE #100
+StartCutSceneMode()
+ActionOverride(Player2,MoveBetweenAreas("AR0000",[0.0],0))
+ActionOverride(Player3,MoveBetweenAreas("AR0000",[0.0],0))
+ActionOverride(Player4,MoveBetweenAreas("AR0000",[0.0],0))
+ActionOverride(Player5,MoveBetweenAreas("AR0000",[0.0],0))
+ActionOverride(Player6,MoveBetweenAreas("AR0000",[0.0],0))
+SetGlobal("started","locals",2)
+EndCutSceneMode()
+END
+
+IF
+  HasItem("minhp1",Myself)
+  HPLT(Myself,2)	//duel: failed
+THEN
+  RESPONSE #100
+	StartCutSceneMode()
+	ReallyForceSpell(Myself,CLERIC_HEAL)
+	DestroyItem("minhp1")
+	CreateCreatureObject("tb#phala",Myself,1,0,0)
+	CreateCreatureObject("tb#merik",Myself,1,0,0)
+	CreateCreatureObject("tb#lorun",Myself,1,0,0)
+	MoveGlobalObjectOffScreen(Player2,Myself)
+        MoveGlobalObjectOffScreen(Player3,Myself)
+        MoveGlobalObjectOffScreen(Player4,Myself)
+        MoveGlobalObjectOffScreen(Player5,Myself)
+        MoveGlobalObjectOffScreen(Player6,Myself)
+	EndCutSceneMode()
+	StartDialogueNoSet(Player1)
+END
+
+IF
+  HPLT(Myself,70)
+  !GlobalTimerNotExpired("cast","locals")
+  HasItem("potn52",Myself)
+THEN
+  RESPONSE #100
+	UseItem("potn52",Myself)
+	SetGlobalTimer("cast","locals",6)
+END
+
+IF
+  HasItem("potn14",Myself)
+THEN
+  RESPONSE #100
+	UseItem("Potn14",Myself)
+END
+
+IF
+  CheckStatLT(Myself,18,STR)	//easier than timer to check for rage. This is why I didn't do a berz.
+  HaveSpell(BARBARIAN_RAGE)
+  !GlobalTimerNotExpired("cast","locals")
+THEN
+  RESPONSE #100
+	Spell(Myself,BARBARIAN_RAGE)
+	SetGlobalTimer("cast","locals",6)
+END
+
+IF
+	See(NearestEnemyOfType([PC]))
+        !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(Myself),10)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+        !Allegiance(LastSeenBy(Myself),ENEMY)
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(Myself),10)
+END
+
+IF
+        Allegiance(Myself,ENEMY)
+THEN
+	RESPONSE #100
+		AttackReevaluate(Player1,10)
+END
